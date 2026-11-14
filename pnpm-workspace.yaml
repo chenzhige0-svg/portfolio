@@ -1,3 +1,11 @@
+# pnpm 12 默认不执行依赖的安装脚本。
+# wrangler（Cloudflare 构建时安装/调用）依赖 esbuild 与 workerd 的原生二进制，
+# 不放行会直接报 ERR_PNPM_IGNORED_BUILDS 并中断部署。
+allowBuilds:
+  esbuild: true
+  workerd: true
+
+# 这几个包发布不足最小年龄阈值，显式放行，否则安装会被供应链策略拦下。
 minimumReleaseAgeExclude:
   - '@astrojs/markdown-satteri@0.4.10'
   - '@astrojs/vite-plugin-astro@0.1.3'
