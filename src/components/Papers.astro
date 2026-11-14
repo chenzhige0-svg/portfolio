@@ -1,0 +1,29 @@
+---
+import SectionHead from "./SectionHead.astro";
+import { papers } from "../data/site";
+---
+
+<section class="section section--ink" id="papers" aria-labelledby="papers-title">
+  <div class="wrap">
+    <SectionHead index={papers.index} title={papers.title} note={papers.note} id="papers-title" />
+
+    <div class="paper-list">
+      {papers.items.map((paper, i) => (
+        <article class="paper reveal" style={`--delay:${i * 55}ms`}>
+          <span class="paper__year">{paper.year}</span>
+          <div class="paper__main">
+            <div class="paper__line">
+              <h3 class="paper__title">{paper.title}</h3>
+              <span class="paper__leader" aria-hidden="true"></span>
+            </div>
+            <p class="paper__meta">{paper.authors}</p>
+          </div>
+          <p class="paper__venue">
+            {paper.venue}
+            <span class="paper__veil">{paper.kind}</span>
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

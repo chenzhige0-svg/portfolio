@@ -1,0 +1,58 @@
+---
+import { site } from "../data/site";
+
+const [first, second] = site.nameParts;
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__grid">
+    <div class="hero__left">
+      <div class="hero__top">
+        <p class="hero__kicker mono">{site.kicker}</p>
+        <p class="hero__count mono">01 / 05</p>
+      </div>
+
+      <h1 class="hero__title" id="hero-title" aria-label={site.name}>
+        <span aria-hidden="true">{first}</span>
+        <span class="line-2" aria-hidden="true">{second}<i class="title-square"></i></span>
+      </h1>
+
+      <div class="hero__foot">
+        <p class="hero__lead">{site.lead}</p>
+        <p class="hero__scroll mono" aria-hidden="true">Scroll <span>↓</span></p>
+      </div>
+    </div>
+
+    <aside class="hero__panel" aria-label="Profile">
+      <div class="hero__panel-top">
+        <p class="hero__role">
+          {site.role}
+          <span class="hero__role-zh" lang="zh-CN">{site.roleZh}</span>
+        </p>
+        <p class="stamp" aria-label="Availability">{site.stamp.replace(" — ", " / ")}</p>
+      </div>
+
+      <dl class="hero__meta">
+        <div class="hero__meta-row">
+          <dt>Base</dt>
+          <dd>{site.location}</dd>
+        </div>
+        <div class="hero__meta-row">
+          <dt>Field</dt>
+          <dd>{site.field}</dd>
+        </div>
+        <div class="hero__meta-row">
+          <dt>Status</dt>
+          <dd>{site.status}</dd>
+        </div>
+      </dl>
+
+      <p class="hero__coords mono" aria-hidden="true">{site.coords}</p>
+
+      <a class="hero__mail" href={`mailto:${site.email}`}>
+        {site.email}
+        <span aria-hidden="true">↗</span>
+      </a>
+    </aside>
+  </div>
+</section>

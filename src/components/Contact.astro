@@ -1,0 +1,46 @@
+---
+import { contact, site } from "../data/site";
+---
+
+<footer class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <p class="contact__kicker mono">{contact.kicker}</p>
+
+    <div class="contact__head">
+      <h2 class="contact__title" id="contact-title" aria-label="Let's talk">
+        {contact.title.map((line) => <span aria-hidden="true">{line}</span>)}
+      </h2>
+
+      <div class="contact__aside">
+        <p class="contact__avail mono">{contact.availability}</p>
+        <nav class="contact__links" aria-label="Elsewhere">
+          {contact.links.map((link) => (
+            <a href={link.href} rel="me noopener" target="_blank">
+              {link.label}
+              <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </nav>
+      </div>
+    </div>
+
+    <div class="contact__foot">
+      <div>
+        <p class="contact__lead">{contact.lead}</p>
+        <a class="contact__mail" href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <p class="contact__note mono">{contact.response}</p>
+    </div>
+
+    <div class="footer">
+      <div class="footer__row">
+        <span>{contact.copyright}</span>
+        <a href="#top">Back to top ↑</a>
+      </div>
+      <div class="footer__row">
+        <span>{contact.colophon}</span>
+        <span class="footer__sample">Sample content — replace before publishing</span>
+      </div>
+    </div>
+  </div>
+</footer>

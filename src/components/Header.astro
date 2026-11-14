@@ -1,0 +1,21 @@
+---
+import { site } from "../data/site";
+---
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#top" aria-label={`${site.name} — back to top`}>
+      <span class="brand__mark" aria-hidden="true">{site.initials}</span>
+      <span class="brand__name">{site.name}</span>
+    </a>
+
+    <nav class="nav" aria-label="Sections">
+      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <p class="header-status mono">
+      <span class="header-status__dot" aria-hidden="true"></span>
+      {site.status}
+    </p>
+  </div>
+</header>
