@@ -58,7 +58,7 @@ Cloudflare Pages 或 Vercel 都行，免费额度足够：
 
 - 构建命令 `pnpm build`
 - 输出目录 `dist`
-- 环境变量 `NODE_VERSION=22`（Cloudflare 默认版本可能偏低）
+- Node 版本 **22.23.4 或更高**（Astro 7 的硬要求）。仓库里有 `.node-version`，如果后台还设了 `NODE_VERSION`，两者保持一致，或者删掉环境变量让文件生效。
 
 上线前把 `astro.config.mjs` 里的 `site` 改成真实域名，`Base.astro` 用它生成 canonical。
 
