@@ -3,15 +3,19 @@ import SectionHead from "./SectionHead.astro";
 import { focus } from "../data/site";
 ---
 
-<section class="focus section" id="focus" aria-labelledby="focus-title">
+<section class="section" id="focus" aria-labelledby="focus-title">
   <div class="wrap">
-    <SectionHead title={focus.title} id="focus-title" />
+    <SectionHead index={focus.index} title={focus.title} note={focus.note} id="focus-title" />
+
     <div class="focus-grid">
-      {focus.items.map((item) => (
-        <article class="focus-item">
-          <h3>{item.title}</h3>
-          <p class="focus-item__question">{item.question}</p>
-          <p>{item.body}</p>
+      {focus.items.map((item, i) => (
+        <article class="focus-item reveal" style={`--delay:${i * 90}ms`}>
+          <p class="focus-item__num">{item.id}</p>
+          <h3 class="focus-item__title">{item.title}</h3>
+          <p class="focus-item__body">{item.body}</p>
+          <ul class="focus-item__tags">
+            {item.tags.map((tag) => <li class="tag">{tag}</li>)}
+          </ul>
         </article>
       ))}
     </div>

@@ -1,30 +1,20 @@
 ---
-import { keywords } from "../data/site";
+import { ticker } from "../data/site";
+
+const group = [...ticker, ...ticker];
 ---
 
-<section class="ticker" aria-label="研究关键词" data-ticker>
-  <div class="ticker__viewport">
-    <div class="ticker__track">
-      <ul class="ticker__group" role="list">
-        {keywords.map((keyword) => <li>{keyword}</li>)}
-      </ul>
-      <ul class="ticker__group ticker__group--copy" aria-hidden="true" inert>
-        {keywords.map((keyword) => <li>{keyword}</li>)}
-      </ul>
-    </div>
+<div class="ticker" role="presentation">
+  <div class="ticker__track">
+    {[0, 1].map((copy) => (
+      <div class="ticker__group" aria-hidden={copy === 1 ? "true" : undefined}>
+        {group.map((item) => (
+          <>
+            <span class="ticker__item">{item}</span>
+            <span class="ticker__sep" aria-hidden="true">✳</span>
+          </>
+        ))}
+      </div>
+    ))}
   </div>
-  <button class="ticker__control" type="button">暂停滚动</button>
-</section>
-
-<script>
-  const ticker = document.querySelector<HTMLElement>("[data-ticker]");
-  const control = ticker?.querySelector<HTMLButtonElement>(".ticker__control");
-
-  if (ticker && control) {
-    ticker.setAttribute("data-motion-ready", "");
-    control.addEventListener("click", () => {
-      const paused = ticker.toggleAttribute("data-paused");
-      control.textContent = paused ? "继续滚动" : "暂停滚动";
-    });
-  }
-</script>
+</div>

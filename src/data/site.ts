@@ -1,233 +1,235 @@
 /**
- * 虚构样例。本站的人物、机构、经历、论文及状态、成果数据和示例邮箱均为占位资料。
- * 姓名、机构、论文状态、成果数字和真实链接仅在来源得到确认后替换。
+ * 站点内容唯一数据源。
+ * 想换成自己的信息，只改这个文件即可 —— 组件里没有任何硬编码的个人资料。
+ * 注意：以下人物、机构、论文、数字全部是虚构的占位内容，上线前请全部替换。
  */
-const profileName: { confirmedChinese?: string; latin: string } = {
-  latin: "Han Lu",
-};
-const confirmedChineseName = profileName.confirmedChinese?.trim();
-const name = confirmedChineseName || profileName.latin;
 
 export const site = {
-  name,
-  nameLang: confirmedChineseName ? "zh-CN" : "en",
-  latinName: profileName.latin,
+  name: "HAN LU",
+  nameParts: ["HAN", "LU"],
   initials: "HL",
-  role: "人工智能研究者",
-  lead: "我研究大模型如何得出答案，设计评测检验它们的表现，也探索如何降低训练和运行成本。",
-  title: `${name}｜人工智能研究作品集`,
-  description: `${name} 的中文示例作品集，收录大模型可解释性、模型评测和高效训练的项目与论文。`,
-  location: "北京 · 可远程合作",
-  sampleLabel: "示例作品集",
-  sampleNote: "本站的人物、项目、论文和联系方式均为示例。",
+  role: "AI Researcher",
+  roleZh: "人工智能研究者",
+  kicker: "Selected work — 2026",
+  lead: "I reverse-engineer what large models actually compute, then use that to make them cheaper, safer, and easier to check.",
+  description:
+    "Han Lu — AI researcher working on mechanistic interpretability, evaluation, and efficient training. Portfolio and selected publications.",
+  location: "Beijing / Remote",
+  field: "Interpretability · Evaluation",
+  status: "Open to collaboration",
+  email: "hello@hanlu.dev",
+  coords: "39.9042° N / 116.4074° E",
+  stamp: "Open to work — 2026",
   nav: [
-    { label: "研究方向", href: "#focus" },
-    { label: "代表项目", href: "#work" },
-    { label: "论文", href: "#papers" },
-    { label: "关于", href: "#about" },
-    { label: "联系", href: "#contact" },
+    { label: "Focus", href: "#focus" },
+    { label: "Work", href: "#work" },
+    { label: "Papers", href: "#papers" },
+    { label: "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
   ],
 };
 
-export const keywords = [
-  "大模型可解释性",
-  "规模规律",
-  "模型评测",
-  "稀疏自编码器（SAE）",
-  "开放科学",
-  "多模态",
+export const ticker = [
+  "Mechanistic interpretability",
+  "Scaling laws",
+  "Evaluation",
+  "Sparse autoencoders",
+  "Open science",
+  "Multimodal",
 ];
 
+export const focus = {
+  index: "01",
+  title: "Focus",
+  note: "Three questions I keep returning to.",
+  items: [
+    {
+      id: "01",
+      title: "Mechanistic interpretability",
+      body: "Reverse-engineering the circuits inside transformers. Sparse autoencoders, causal tracing, activation patching — anything that turns a black box into a wiring diagram.",
+      tags: ["SAE", "Causal tracing", "Circuits"],
+    },
+    {
+      id: "02",
+      title: "Scaling & efficiency",
+      body: "How capability changes with compute, data, and sparsity. Which parameters you can remove before the model notices, and which you absolutely cannot.",
+      tags: ["Scaling laws", "MoE", "Distillation"],
+    },
+    {
+      id: "03",
+      title: "Evaluation",
+      body: "Benchmarks that survive contamination. Tests for reasoning, honesty, and refusal that keep their meaning after the leaderboard is gamed.",
+      tags: ["Contamination", "Refusal", "Reasoning"],
+    },
+  ],
+};
+
 export const work = {
-  title: "代表项目",
+  index: "02",
+  title: "Selected work",
+  note: "Four projects, 2024 — 2026.",
   items: [
     {
       id: "sift",
       title: "SIFT",
-      subtitle: "追踪 70B 参数模型中与拒答有关的稀疏特征。",
+      subtitle: "Sparse feature tracing at 70B parameters",
       year: "2026",
-      tags: ["可解释性", "SAE", "开源"],
+      tags: ["Interpretability", "SAE", "Open source"],
       summary:
-        "SIFT 在一台配有 8 张 GPU 的服务器上运行，用特征追踪找出对模型拒答起主要作用的一小组稀疏特征。分析时无需重新训练模型或修改权重。",
+        "A feature-level tracer that runs on a single eight-GPU node. It attributes refusal behaviour in a 70B model to a small set of sparse features, without retraining the model or touching its weights.",
       results: [
-        ["4.1%", "的特征贡献了 88% 的拒答因果效应。"],
-        ["7.3×", "参考追踪流程与 SIFT 的 GPU 显存占用之比。"],
-        ["11 家", "实验室在项目发布后半年内采用了这套工具。"],
+        ["4.1%", "of features carry 88% of the causal effect on refusal"],
+        ["7.3x", "less GPU memory than the reference tracing pipeline"],
+        ["11", "downstream labs adopted the release in six months"],
       ],
       stack: "PyTorch · CUDA · 8×H100",
     },
     {
       id: "atlas-9",
       title: "ATLAS-9",
-      subtitle: "从头训练一个 9B 参数的多语言推理模型。",
+      subtitle: "A 9B multilingual reasoning model",
       year: "2025",
-      tags: ["预训练", "多语言推理"],
+      tags: ["Pretraining", "Multilingual", "Reasoning"],
       summary:
-        "训练数据覆盖 23 种语言，共 1.2T tokens（词元）。性能提升主要来自调整数据配比，以及分阶段引入带推理步骤的样本。",
+        "Trained from scratch on 1.2T tokens across 23 languages. Most of the gain came from data mixing and a curriculum on chain-of-thought traces, not from adding parameters.",
       results: [
-        ["+14.6 分", "MMLU-Pro 得分相对 13B 基线的提升。"],
-        ["23 种", "语言的通过率超过 60%。"],
-        ["1.2T tokens", "训练所用的数据量。训练用了 128 张 GPU，历时 41 天。"],
+        ["+14.6", "points on MMLU-Pro over a 13B baseline"],
+        ["23", "languages above the 60% pass mark"],
+        ["1.2T", "tokens, 41 days on 128 GPUs"],
       ],
       stack: "Megatron · BF16 · 128×H100",
     },
     {
       id: "circuit-bench",
       title: "CIRCUIT BENCH",
-      subtitle: "用 240 道手工设计的任务检验模型解释。",
+      subtitle: "240 hand-built tasks for interpretability claims",
       year: "2025",
-      tags: ["可解释性", "模型评测"],
+      tags: ["Benchmark", "Interpretability", "Evaluation"],
       summary:
-        "每道任务都预先设定了模型内部的计算过程。把解释方法给出的结论与这个已知过程对照，就能判断解释是否符合模型实际做的计算。",
+        "A diagnostic suite that checks whether an interpretability method actually recovers a known circuit. Every task has a ground-truth mechanism, so a plausible-looking explanation can be scored as wrong.",
       results: [
-        ["240 道", "任务覆盖 6 类模型架构。"],
-        ["18 个", "模型的参数规模从 1B 到 70B。"],
-        ["0.31", "随机探针的平均得分，低于随机猜测的水平。"],
+        ["240", "tasks across 6 architectural families"],
+        ["18", "models, from 1B to 70B parameters"],
+        ["0.31", "mean score for random probes — below chance"],
       ],
-      stack: "Python · TransformerLens · 18 个模型检查点",
+      stack: "Python · TransformerLens · 18 checkpoints",
     },
     {
       id: "prism",
       title: "PRISM",
-      subtitle: "复用已有视觉编码器来做图文检索。",
+      subtitle: "Multimodal retrieval without a second encoder",
       year: "2024",
-      tags: ["多模态", "图文检索"],
+      tags: ["Multimodal", "Retrieval", "Infrastructure"],
       summary:
-        "固定已有视觉编码器的权重，只训练一个小型适配模块。与从头训练图文联合嵌入的做法相比，这样可以在保持召回率的同时减少计算开销。",
+        "A retrieval layer that reuses a frozen vision encoder and a small adapter instead of training a joint embedding from scratch. Same recall, a fraction of the compute.",
       results: [
-        ["3.4×", "索引构建速度相对于联合嵌入基线的倍数。"],
-        ["96.2%", "在内部图文数据集上的 recall@10（前 10 条结果的召回率）。"],
-        ["1 个", "适配模块，含 38M 参数。视觉编码器的权重保持固定。"],
+        ["3.4×", "faster indexing than the joint-embedding baseline"],
+        ["96.2%", "recall@10 on the internal image-text set"],
+        ["1", "adapter, 38M parameters, frozen backbone"],
       ],
-      stack: "CLIP · FAISS · Rust 服务",
-    },
-  ],
-};
-
-export const focus = {
-  title: "研究方向",
-  items: [
-    {
-      title: "大模型可解释性",
-      question: "模型内部是怎样算出答案的？",
-      body: "我用稀疏自编码器（SAE）寻找模型内部的特征，再通过因果追踪等方法改变内部信号，看输出是否随之变化。",
-    },
-    {
-      title: "模型评测",
-      question: "模型得了高分，究竟会做什么？",
-      body: "我检查测试题是否混入了训练数据，并设计评测，看看模型遇到新问题时能否推理、坦承不确定，或在需要时拒绝回答。",
-    },
-    {
-      title: "高效训练",
-      question: "算力有限时，哪些地方可以省？",
-      body: "我比较算力、数据量和模型稀疏程度对表现的影响，也关注混合专家模型（MoE）和蒸馏，看看哪些计算可以省下来。",
+      stack: "CLIP · FAISS · Rust service",
     },
   ],
 };
 
 export const papers = {
-  title: "论文",
-  note: "* 表示同等贡献",
+  index: "03",
+  title: "Publications",
+  note: "* equal contribution. Selected, not exhaustive.",
   items: [
     {
       year: "2026",
-      originalTitle: "Sparse Features Are Not Enough: Causal Sufficiency in SAE Explanations",
-      topic: "检验稀疏自编码器（SAE）找出的特征是否足以解释模型行为。",
+      title: "Sparse Features Are Not Enough: Causal Sufficiency in SAE Explanations",
       venue: "NeurIPS 2026",
-      kind: "在审",
+      kind: "Under review",
       authors: "H. Lu, M. Okafor, J. Ren",
     },
     {
       year: "2025",
-      originalTitle: "Contamination-Resistant Evaluation for Code Models",
-      topic: "研究如何减少训练数据污染对代码模型评测的影响。",
+      title: "Contamination-Resistant Evaluation for Code Models",
       venue: "ICML 2025",
-      kind: "口头报告",
+      kind: "Oral",
       authors: "H. Lu*, T. Weiss, A. Duarte",
     },
     {
       year: "2025",
-      originalTitle: "Circuit Bench: A Diagnostic Suite for Mechanistic Claims",
-      topic: "用已知的内部计算过程检验模型解释是否成立。",
+      title: "Circuit Bench: A Diagnostic Suite for Mechanistic Claims",
       venue: "ICLR 2025",
-      kind: "重点展示（Spotlight）",
+      kind: "Spotlight",
       authors: "H. Lu, S. Kaur, L. Feng, M. Okafor",
     },
     {
       year: "2024",
-      originalTitle: "Scaling Laws for Sparse Mixture Models Under Fixed Compute",
-      topic: "研究算力固定时，稀疏混合模型的表现如何随规模变化。",
+      title: "Scaling Laws for Sparse Mixture Models Under Fixed Compute",
       venue: "TMLR 2024",
-      kind: "期刊论文",
+      kind: "Journal",
       authors: "H. Lu, A. Duarte",
     },
     {
       year: "2024",
-      originalTitle: "What Refusal Looks Like Inside a Transformer",
-      topic: "分析 Transformer 在拒绝回答时的内部计算。",
+      title: "What Refusal Looks Like Inside a Transformer",
       venue: "ACL 2024",
-      kind: "长论文",
+      kind: "Long paper",
       authors: "H. Lu*, J. Ren, P. Sandoval",
     },
   ],
 };
 
 export const about = {
-  title: "关于我",
+  index: "04",
+  title: "About",
+  note: "Short version.",
   bio: [
-    "我做大模型的可解释性和评测研究。有人摸清了评测的套路，我会去看分数还反映了哪些能力。看到一个对模型内部计算的解释，我会动手验证它。",
-    "我花了四年读计算神经科学博士，养成了先做测量、再提解释的习惯。现在我仍然每天写代码。",
+    "I am a research scientist working on the gap between what a model can do and what we can explain about it. Most of my work starts with a benchmark that someone has learned to game, or a circuit diagram that nobody has verified.",
+    "Before this I spent four years on a PhD in computational neuroscience, which is where I picked up the habit of measuring before theorising. I still write code every day.",
   ],
   timeline: [
     {
-      period: "2026 至今",
-      role: "研究科学家",
-      org: "计算智能研究所",
-      note: "研究大规模模型的可解释性与评测。",
+      period: "2026 —",
+      role: "Research Scientist",
+      org: "Institute for Computational Intelligence",
+      note: "Interpretability and evaluation for frontier-scale models.",
     },
     {
-      period: "2024–2026",
-      role: "博士后研究员",
-      org: "苏黎世 Frontier Lab",
-      note: "追踪模型内部的稀疏特征，搭建实验室的首套评测工具。",
+      period: "2024 — 2026",
+      role: "Postdoctoral Researcher",
+      org: "Frontier Lab, Zurich",
+      note: "Sparse feature tracing; built the lab's first eval harness.",
     },
     {
-      period: "2020–2024",
-      role: "计算神经科学博士",
-      org: "苏黎世联邦理工学院",
-      note: "研究如何用因果方法理解神经表示。",
+      period: "2020 — 2024",
+      role: "PhD, Computational Neuroscience",
+      org: "ETH Zürich",
+      note: "Thesis on causal methods for reading neural representations.",
     },
     {
-      period: "2019–2020",
-      role: "研究实习生",
-      org: "清华大学视觉研究组",
-      note: "参与多模态检索与数据集构建。",
+      period: "2019 — 2020",
+      role: "Research Intern",
+      org: "Vision Group, Tsinghua",
+      note: "Multimodal retrieval and dataset construction.",
     },
   ],
   stats: [
-    { value: "14", label: "篇同行评议论文" },
-    { value: "1,900", label: "次引用" },
-    { value: "6", label: "项开源成果" },
-    { value: "8", label: "年研究经历" },
+    { value: "14", label: "Peer-reviewed papers" },
+    { value: "1.9k", label: "Citations" },
+    { value: "06", label: "Open-source releases" },
+    { value: "08", label: "Years in research" },
   ],
 };
 
-const contactEmail: { example: string; confirmed?: string } = {
-  example: "hello@hanlu.example",
-};
-const confirmedEmail = contactEmail.confirmed?.trim();
-
-// 仅填写已确认的个人主页、论文档案或简历链接。
-const confirmedLinks: { label: string; href: string }[] = [];
-
 export const contact = {
-  title: ["联系", "合作"],
-  lead: "欢迎交流大模型的可解释性、评测和研究合作。",
-  email: {
-    address: confirmedEmail || contactEmail.example,
-    label: confirmedEmail ? "联系邮箱" : "示例邮箱",
-    href: confirmedEmail ? `mailto:${confirmedEmail}` : undefined,
-  },
-  links: confirmedLinks,
-  copyright: `© 2026 ${site.name}`,
+  kicker: "05 — Contact",
+  title: ["LET'S", "TALK"],
+  availability: "Open to work — 2026",
+  response: "Usually replies within two working days",
+  lead: "Open to research collaborations, reviewing, and hard problems in interpretability.",
+  links: [
+    { label: "GitHub", href: "https://github.com/" },
+    { label: "X / Twitter", href: "https://x.com/" },
+    { label: "Google Scholar", href: "https://scholar.google.com/" },
+    { label: "CV (PDF)", href: "mailto:hello@hanlu.dev?subject=CV" },
+  ],
+  colophon:
+    "Set in Anton, Oswald, Inter and IBM Plex Mono. Built with Astro. No trackers, no cookie banner.",
+  copyright: "© 2026 Han Lu",
 };

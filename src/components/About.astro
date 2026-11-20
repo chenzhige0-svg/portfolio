@@ -1,35 +1,40 @@
 ---
 import SectionHead from "./SectionHead.astro";
-import { about, site } from "../data/site";
+import { about } from "../data/site";
 ---
 
-<section class="section about" id="about" aria-labelledby="about-title">
+<section class="section" id="about" aria-labelledby="about-title">
   <div class="wrap">
-    <SectionHead title={about.title} note={site.location} id="about-title" />
+    <SectionHead index={about.index} title={about.title} note={about.note} id="about-title" />
+
     <div class="about-grid">
-      <div class="about-bio">
-        {about.bio.map((paragraph) => <p>{paragraph}</p>)}
+      <div class="about-bio reveal">
+        {about.bio.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
       </div>
-      <ol class="timeline" aria-label="研究经历">
+
+      <div class="timeline reveal" style="--delay:120ms">
         {about.timeline.map((entry) => (
-          <li class="timeline__row">
+          <div class="timeline__row">
             <span class="timeline__period">{entry.period}</span>
             <div>
-              <h3>{entry.role}</h3>
-              <p>{entry.org}</p>
+              <p class="timeline__role">{entry.role}</p>
+              <p class="timeline__org">{entry.org}</p>
               <p class="timeline__note">{entry.note}</p>
             </div>
-          </li>
+          </div>
         ))}
-      </ol>
+      </div>
     </div>
-    <dl class="stats">
+
+    <div class="stats reveal">
       {about.stats.map((stat) => (
         <div class="stat">
-          <dt>{stat.value}</dt>
-          <dd>{stat.label}</dd>
+          <p class="stat__value">{stat.value}</p>
+          <p class="stat__label">{stat.label}</p>
         </div>
       ))}
-    </dl>
+    </div>
   </div>
 </section>
