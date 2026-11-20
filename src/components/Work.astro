@@ -1,78 +1,49 @@
 ---
-import SectionHead from "./SectionHead.astro";
 import { work } from "../data/site";
+
+const years = work.items.map((item) => Number(item.year));
+const firstYear = Math.min(...years);
+const lastYear = Math.max(...years);
+const yearRange = firstYear === lastYear ? String(firstYear) : `${firstYear}–${lastYear}`;
 ---
 
-<section class="section" id="work" aria-labelledby="work-title">
-  <div class="wrap">
-    <SectionHead index={work.index} title={work.title} note={work.note} id="work-title" />
+<section class="section wrap" id="work" aria-labelledby="work-title">
+  <header class="sec-head">
+    <h2 id="work-title">{work.title}</h2>
+    <p><span class="numeric">{yearRange} · {work.items.length}</span> 个项目</p>
+  </header>
 
-    <div class="work-list">
-      {work.items.map((item, i) => (
-        <details class="work-item reveal" style={`--delay:${i * 60}ms`}>
-          <summary>
-            <span class="work-item__num">{String(i + 1).padStart(2, "0")}</span>
-            <span class="work-item__main">
-              <span class="work-item__title">{item.title}</span>
-              <span class="work-item__sub">{item.subtitle}</span>
-            </span>
-            <span class="work-item__tags">
-              {item.tags.map((tag) => <span class="tag">{tag}</span>)}
-            </span>
-            <span class="work-item__year">{item.year}</span>
-            <span class="work-item__toggle" aria-hidden="true">+</span>
-          </summary>
-
-          <div class="work-item__body">
-            <div class="work-item__detail">
-              <span class="mark" aria-hidden="true">
-                {i === 0 && (
-                  <svg viewBox="0 0 64 64">
-                    <rect x="1" y="1" width="62" height="62" class="stroke" stroke-width="2" />
-                    <circle cx="32" cy="32" r="17" class="fill" />
-                    <line x1="6" y1="58" x2="58" y2="6" class="stroke" stroke-width="3" />
-                  </svg>
-                )}
-                {i === 1 && (
-                  <svg viewBox="0 0 64 64">
-                    <rect x="1" y="1" width="62" height="62" class="stroke" stroke-width="2" />
-                    <rect x="12" y="13" width="40" height="9" class="fill" />
-                    <rect x="12" y="28" width="28" height="9" class="fill" />
-                    <rect x="12" y="43" width="14" height="9" class="fill" />
-                  </svg>
-                )}
-                {i === 2 && (
-                  <svg viewBox="0 0 64 64">
-                    <rect x="1" y="1" width="62" height="62" class="stroke" stroke-width="2" />
-                    <path d="M12 50 L32 14 L52 50 Z" class="fill" />
-                    <line x1="12" y1="50" x2="52" y2="50" class="stroke" stroke-width="3" />
-                  </svg>
-                )}
-                {i === 3 && (
-                  <svg viewBox="0 0 64 64">
-                    <rect x="1" y="1" width="62" height="62" class="stroke" stroke-width="2" />
-                    <path d="M8 56 A48 48 0 0 1 56 8" class="stroke" stroke-width="6" />
-                    <path d="M8 36 A28 28 0 0 1 36 8" class="stroke" stroke-width="6" />
-                    <rect x="42" y="42" width="14" height="14" class="fill" />
-                  </svg>
-                )}
-              </span>
-
-              <p class="work-item__desc">{item.summary}</p>
-              <p class="work-item__stack mono">{item.stack}</p>
-            </div>
-
-            <dl class="results">
-              {item.results.map(([value, label]) => (
-                <div class="result">
-                  <dt>{value}</dt>
-                  <dd>{label}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </details>
-      ))}
-    </div>
+  <div class="work-list">
+    {work.items.map((item) => (
+      <details class="work-item" id={item.id}>
+        <summary>
+          <span class="work-item__meta">
+            <time datetime={item.year}>{item.year}</time>
+            <span>{item.tags.join(" / ")}</span>
+          </span>
+          <span class="work-item__heading">
+            <span class="work-item__title" lang="en">{item.title}</span>
+            <span class="work-item__sub">{item.subtitle}</span>
+          </span>
+          <span class="work-item__action" aria-hidden="true">
+            <span class="work-item__expand">查看详情</span>
+            <span class="work-item__collapse">收起详情</span>
+            <span class="work-item__toggle"></span>
+          </span>
+        </summary>
+        <div class="work-item__body">
+          <p>{item.summary}</p>
+          <dl class="results">
+            {item.results.map(([value, label]) => (
+              <div class="result">
+                <dt>{value}</dt>
+                <dd>{label}</dd>
+              </div>
+            ))}
+          </dl>
+          <p class="work-item__stack">{item.stack}</p>
+        </div>
+      </details>
+    ))}
   </div>
 </section>

@@ -5,22 +5,19 @@ import { papers } from "../data/site";
 
 <section class="section section--ink" id="papers" aria-labelledby="papers-title">
   <div class="wrap">
-    <SectionHead index={papers.index} title={papers.title} note={papers.note} id="papers-title" />
-
+    <SectionHead title={papers.title} note={papers.note} id="papers-title" />
     <div class="paper-list">
-      {papers.items.map((paper, i) => (
-        <article class="paper reveal" style={`--delay:${i * 55}ms`}>
-          <span class="paper__year">{paper.year}</span>
-          <div class="paper__main">
-            <div class="paper__line">
-              <h3 class="paper__title">{paper.title}</h3>
-              <span class="paper__leader" aria-hidden="true"></span>
-            </div>
-            <p class="paper__meta">{paper.authors}</p>
+      {papers.items.map((paper) => (
+        <article class="paper">
+          <time datetime={paper.year}>{paper.year}</time>
+          <div>
+            <h3 lang="en">{paper.originalTitle}</h3>
+            <p class="paper__topic">{paper.topic}</p>
+            <p class="paper__authors" lang="en">{paper.authors}</p>
           </div>
           <p class="paper__venue">
-            {paper.venue}
-            <span class="paper__veil">{paper.kind}</span>
+            <span lang="en">{paper.venue}</span>
+            <span class="paper__kind">{paper.kind}</span>
           </p>
         </article>
       ))}

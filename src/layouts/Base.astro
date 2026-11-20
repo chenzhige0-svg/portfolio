@@ -1,9 +1,7 @@
 ---
 import "@fontsource/anton/latin-400.css";
-import "@fontsource/oswald/latin-400.css";
 import "@fontsource/oswald/latin-600.css";
 import "@fontsource/ibm-plex-mono/latin-400.css";
-import "@fontsource/ibm-plex-mono/latin-500.css";
 import "@fontsource-variable/inter";
 import "../styles/global.css";
 import { site } from "../data/site";
@@ -14,55 +12,28 @@ interface Props {
 }
 
 const {
-  title = `${site.name} — ${site.role}`,
+  title = site.title,
   description = site.description,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#111010" />
+    <meta name="theme-color" content="#efe9dc" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={Astro.site ?? "https://example.com"} />
-    <script is:inline>
-      document.documentElement.classList.add("js");
-    </script>
+    {Astro.site && <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />}
   </head>
-  <body>
-    <a class="skip" href="#main">Skip to content</a>
+  <body id="top">
+    <a class="skip" href="#main">跳转到正文</a>
     <slot />
-
-    <script>
-      const items = document.querySelectorAll<HTMLElement>(".reveal");
-
-      if (
-        "IntersectionObserver" in window &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-in");
-                io.unobserve(entry.target);
-              }
-            }
-          },
-          { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
-        );
-
-        items.forEach((el) => io.observe(el));
-      } else {
-        items.forEach((el) => el.classList.add("is-in"));
-      }
-    </script>
   </body>
 </html>

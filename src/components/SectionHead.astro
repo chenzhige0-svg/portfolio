@@ -1,16 +1,14 @@
 ---
 interface Props {
-  index: string;
   title: string;
   note?: string;
-  id?: string;
+  id: string;
 }
 
-const { index, title, note, id } = Astro.props;
+const { title, note, id } = Astro.props;
 ---
 
-<header class="sec-head reveal">
-  <span class="sec-head__index" aria-hidden="true">{index}</span>
-  <h2 class="sec-head__title" id={id}>{title}</h2>
-  {note && <p class="sec-head__note">{note}</p>}
+<header class="sec-head">
+  <h2 id={id}>{title}</h2>
+  {note && <p>{note}</p>}
 </header>
